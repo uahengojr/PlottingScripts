@@ -13,26 +13,28 @@ end
 if strcmp(ext, '.xls')
 
     data = xlsread(fullfileName);
-    ang = data(:, 1);
-    int = data(:, 2);
+    xdata = data(:, 1);
+    ydata = data(:, 2);
     
-%%elseif strcmp(ext, '.xlsx')
+elseif strcmp(ext, '.xlsx')
 
     % Do something..
     
 else
     % Its a CSV file
     data = csvread(fullfileName,1,0);
-    angle = data(:,1);
-    intensity = data(:,2);
+    xdata = data(:,1);
+    ydata = data(:,2);
 end
 
 % Locate XRD Scan Range
-ll = min(angle); 
-ul = max(angle);
+ll = min(xdata); 
+ul = max(ydata);
+%%
+%Send to normalization function
 
 % Normalize Data
-y_data = normalize(intensity);
+ydata = normalize(intensity);
 
 %% 
 %Plot the XRD data
@@ -41,8 +43,8 @@ y_data = normalize(intensity);
 %  X1:  vector of x data
 %  Y1:  vector of y data
 
-X1 = angle;
-Y1 = y_data;
+X1 = xdata;
+Y1 = ydata;
 
 % Create figure
 figure1 = figure;
