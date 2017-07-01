@@ -73,3 +73,26 @@ title('Sample XRD Pattern', 'fontsize', 32);
 % Create plot
 plot(X1,Y1, 'LineWidth', 1.5);
 
+%{
+%User defined 'type'
+switch type
+
+    case 'XRD'
+        x_axis = '2\theta (degrees)';
+        y_axis = 'Intensity (a.u.)';
+        title = 'Sample XRD Pattern';
+
+    case 'Transmission'
+        x_axis = 'Wavelength (nm)';
+        y_axis = '%T';
+        title = 'Sample Transmission Profile';
+
+    case 'Reflection'
+        x_axis = '2\theta (degrees)';
+        y_axis = '%R';
+        title = 'Sample Reflection Profile';
+
+    otherwise
+        warning('Dude! Help me; Help you!');
+end
+%}
