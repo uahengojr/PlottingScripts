@@ -1,39 +1,38 @@
 % Dialog open box to select files for upload.
-[fileName, filePath, filterIndex] = uigetfile({'*.csv'; '*.xls'; '*.xlsx'}, 'Select an excel file');
+[fileName, filePath, filterIndex] = uigetfile({'*.csv; *.xls; *.xlsx', 'Excel & CSV files'}, 'Select a file');
 
 if isequal(filterIndex, 0)
+    disp('User selected Cancel.');
     return;
 else
     fullfileName = fullfile(filePath,fileName);
+    [pathstr, name, ext] = fileparts(fileName);
 end
 
-%%if(ext == '.xls')
-    %num = xlsread(fullfileName)
-%%else
-    alldata = csvread(fullfileName,1,0);
-    angle = alldata(:,1);
-    intensity = alldata(:,2);
-%%end
+% Load data into workspace
+if strcmp(ext, '.xls')
+
+    data = xlsread(fullfileName);
+    ang = data(:, 1);
+    int = data(:, 2);
+    
+%%elseif strcmp(ext, '.xlsx')
+
+    % Do something..
+    
+else
+    % Its a CSV file
+    data = csvread(fullfileName,1,0);
+    angle = data(:,1);
+    intensity = data(:,2);
+end
 
 % Locate XRD Scan Range
 ll = min(angle); 
 ul = max(angle);
 
-% Variable memory allocation 
-min = min(intensity);
-max = max(intensity);
-diff = max - min;
-N = length(intensity);
-normIntensity = zeros([N 1]);
-
-%%
-% For loop to normalize X-ray difaction machine reported PSD/counts
-for i = 1:N
-    normIntensity(i) = (intensity(i) - min) ./ diff;
-end
-
-%%
-clear min max N diff i;
+% Normalize Data
+y_data = normalize(intensity);
 
 %% 
 %Plot the XRD data
@@ -41,8 +40,9 @@ clear min max N diff i;
 %CREATEFIGURE(X1, Y1)
 %  X1:  vector of x data
 %  Y1:  vector of y data
+
 X1 = angle;
-Y1 = normIntensity;
+Y1 = y_data;
 
 % Create figure
 figure1 = figure;
@@ -67,9 +67,6 @@ xlabel('2\theta (degrees)','fontsize', 26);
 
 % Create title
 title('Sample XRD Pattern', 'fontsize', 32);
-
-
-
 
 % Create plot
 plot(X1,Y1, 'LineWidth', 1.5);
