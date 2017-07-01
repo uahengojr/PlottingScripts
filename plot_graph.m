@@ -32,11 +32,18 @@ hold(axes1, 'on');
 set(gca, 'fontsize', 26, 'fontweight', 'bold');
 
 % Create X-label and Y-label
+
+
 xlabel(x_axis, 'fontsize', 26);
 ylabel(y_axis, 'fontsize', 26);
 
 
 %Create graph title
 title(title ,'fontsize', 26);
+
+% Finished doing WORK!
+output_args = 'Done!';
+disp('Done ploting your data...');
+
 end
 
