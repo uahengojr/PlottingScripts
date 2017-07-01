@@ -1,5 +1,8 @@
-#Ignore csv data file
+#Ignore data file
 *.csv
+*.xls
+*.xlsx
+*.xlt
 
 #Ignore generated figures
 *.fig
