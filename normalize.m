@@ -1,5 +1,10 @@
 function[x] = normalize(data)
 
+% Validate the input data
+if ~isvector(data)
+    error('Input must be a vector');
+end
+
 % Compute length, min and max values of data
 N = length(data);
 minimum = min(data);
