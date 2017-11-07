@@ -1,5 +1,5 @@
 % Dialog open box to select files for upload.
-[fileName, filePath, filterIndex] = uigetfile({'*.csv; *.xls; *.xlsx', 'Excel & CSV files'}, 'Select a file');
+[fileName, filePath, filterIndex] = uigetfile({'*.csv; *.xls; *.xlsx', 'excel or csv files only'}, 'Select a file');
 
 if isequal(filterIndex, 0)
     disp('User selected Cancel.');
