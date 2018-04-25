@@ -12,7 +12,7 @@ filename = {
 };  
 
 
-% Overlapping Plots
+% Normalized Overlapping Plots
 
 for i = 1:length(filename)
     
@@ -51,6 +51,7 @@ for i = 1:length(filename)
     
 end
 
+%%
 
 % Waterfall/Stacked Plots
 
@@ -87,6 +88,50 @@ for j = 1:length(filename)
     title('Raman Spectra of * YSZ Bulk Samples', 'FontSize', 52);
     xlabel('Raman Shift, \lambda (cm^{-1})', 'FontSize', 38), xlim([1100 2500]);
     ylabel('Normalized Intensity (arb.)', 'FontSize', 38), ylim([0 5.1]);
+    legend({'0 hr', '1/2 hr', '1 hr', '2 hrs', '3 hrs'});
+    grid on, grid minor;
+    
+end
+
+%%   
+
+% Raw Data Plots
+
+for k = 1:length(filename)
+    
+     rawRamanData = importdata([filepath, filename{k}]);
+    
+    % Wavenumber
+    wavenumber = rawRamanData.data(:, 1);
+    
+    % Unannealed
+        zero_hour = rawRamanData.data(:, 2);
+    % Half-hour annealed
+        xhalf_hour = rawRamanData.data(:, 3);
+    % 1-hour annealed
+        x1_hour = rawRamanData.data(:, 4);
+    % 2-hour annealed
+        x2_hours = rawRamanData.data(:, 5);
+    % 3-hour annealed
+        x3hours = rawRamanData.data(:, 6);
+        
+    % Plot retrieved data
+    
+    % Plot retrieved data
+    p = k * 100;
+    
+    figure(p), hold on;
+    
+    plot(wavenumber, zero_hour, 'k', 'LineWidth', 2.0);
+    plot(wavenumber, xhalf_hour, 'g', 'LineWidth', 2.0);
+    plot(wavenumber, x1_hour, 'b', 'LineWidth', 2.0);
+    plot(wavenumber, x2_hours, 'y', 'LineWidth', 2.0);
+    plot(wavenumber, x3hours, 'r', 'LineWidth', 2.0);
+    
+    set(gca, 'FontSize', 26, 'FontWeight', 'bold');
+    title('Raman Spectra of * YSZ Bulk Samples', 'FontSize', 52);
+    xlabel('Raman Shift, \lambda (cm^{-1})', 'FontSize', 38), xlim([1100 2500]);
+    ylabel('Raw Intensity (arb.)', 'FontSize', 38);
     legend({'0 hr', '1/2 hr', '1 hr', '2 hrs', '3 hrs'});
     grid on, grid minor;
     
